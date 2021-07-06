@@ -1,8 +1,9 @@
 import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:clean_arquitecture/core/error/exceptions.dart';
-import 'package:clean_arquitecture/features/number_trivia/data/models/number_trivia_model.dart';
+import '../../../../core/error/exceptions.dart';
+import '../models/number_trivia_model.dart';
 
 abstract class NumberTriviaLocaDataSource {
   /// Gets the cached [NumberTriviaModel] wich was gotten the last time
