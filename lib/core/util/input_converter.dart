@@ -8,6 +8,5 @@
 // }
 
 // class InvalidInputFailure extends Failure{
-  
-// }
 
+// }

@@ -14,4 +14,3 @@ class NumberTriviaModel extends NumberTrivia {
     return {'text': text, 'number': number};
   }
 }
- 
