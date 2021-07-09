@@ -13,7 +13,7 @@ typedef _ConcreteOpRandomChooser = Future<NumberTriviaModel> Function();
 
 class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   final NumberTriviaRemoteDataSource remoteDataSource;
-  final NumberTriviaLocaDataSource localDataSource;
+  final NumberTriviaLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
 
   NumberTriviaRepositoryImpl(

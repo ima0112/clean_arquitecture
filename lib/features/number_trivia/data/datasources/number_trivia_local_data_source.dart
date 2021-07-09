@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/error/exceptions.dart';
 import '../models/number_trivia_model.dart';
 
-abstract class NumberTriviaLocaDataSource {
+abstract class NumberTriviaLocalDataSource {
   /// Gets the cached [NumberTriviaModel] wich was gotten the last time
   /// the user had an internet connection.
   ///
@@ -17,7 +17,7 @@ abstract class NumberTriviaLocaDataSource {
 
 const cachedNumberTrivia = 'CACHED_NUMBER_TRIVIA';
 
-class NumberTriviaLocalDataSourceImpl implements NumberTriviaLocaDataSource {
+class NumberTriviaLocalDataSourceImpl implements NumberTriviaLocalDataSource {
   final SharedPreferences sharedPreferences;
 
   NumberTriviaLocalDataSourceImpl({required this.sharedPreferences});

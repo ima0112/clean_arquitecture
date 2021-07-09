@@ -49,7 +49,7 @@ class MockNumberTriviaRemoteDataSource extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockNumberTriviaLocaDataSource extends _i1.Mock
-    implements _i5.NumberTriviaLocaDataSource {
+    implements _i5.NumberTriviaLocalDataSource {
   MockNumberTriviaLocaDataSource() {
     _i1.throwOnMissingStub(this);
   }

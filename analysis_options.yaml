@@ -105,4 +105,4 @@ linter:
 
 analyzer:
   exclude:
-    - "**/*.mocks.dart"
+    # - "**/*.mocks.dart"
