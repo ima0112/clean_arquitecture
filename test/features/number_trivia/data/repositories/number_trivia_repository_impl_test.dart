@@ -21,12 +21,12 @@ import 'number_trivia_repository_impl_test.mocks.dart';
 void main() {
   late NumberTriviaRepositoryImpl repository;
   late MockNumberTriviaRemoteDataSource mockNumberTriviaRemoteDataSource;
-  late MockNumberTriviaLocaDataSource mockNumberTriviaLocaDataSource;
+  late MockNumberTriviaLocalDataSource mockNumberTriviaLocaDataSource;
   late MockNetworkInfo mockNetworkInfo;
 
   setUp(() {
     mockNumberTriviaRemoteDataSource = MockNumberTriviaRemoteDataSource();
-    mockNumberTriviaLocaDataSource = MockNumberTriviaLocaDataSource();
+    mockNumberTriviaLocaDataSource = MockNumberTriviaLocalDataSource();
     mockNetworkInfo = MockNetworkInfo();
 
     repository = NumberTriviaRepositoryImpl(

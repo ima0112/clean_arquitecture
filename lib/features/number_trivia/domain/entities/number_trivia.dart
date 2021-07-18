@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 
 class NumberTrivia extends Equatable {
@@ -8,4 +10,7 @@ class NumberTrivia extends Equatable {
 
   @override
   List<Object?> get props => [text, number];
+
+  String fixture(String name) =>
+      File('features/number_trivia/domain/entities/$name').readAsStringSync();
 }

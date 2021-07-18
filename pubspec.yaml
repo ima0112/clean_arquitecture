@@ -47,6 +47,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  #flutter drive --driver=test_driver/integration_driver.dart --target=integration_test/app_test.dart
+  integration_test:
+    sdk: flutter
   mockito: ^5.0.10
   # generate the mocks running the following command:
   # flutter pub run build_runner build
