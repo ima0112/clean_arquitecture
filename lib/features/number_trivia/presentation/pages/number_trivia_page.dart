@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:beamer/beamer.dart';
 
 import '../../../../injection_container.dart';
 import '../bloc/number_trivia_bloc.dart';
@@ -18,45 +22,12 @@ class NumberTriviaPage extends StatelessWidget {
     );
   }
 
-  BlocProvider<NumberTriviaBloc> buildBody(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<NumberTriviaBloc>(),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            topHalf(context),
-            SizedBox(
-              height: 16.0,
-            ),
-            TriviaControls()
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget topHalf(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    return SizedBox(
-      height: size.height * 0.4,
-      child: BlocBuilder<NumberTriviaBloc, NumberTriviaState>(
-        builder: (context, state) {
-          if (state is Empty) {
-            return MessageDisplay(
-              message: 'Start',
-            );
-          } else if (state is Loading) {
-            return LoadingWidget();
-          } else if (state is Loaded) {
-            return TriviaDisplay(numberTrivia: state.trivia);
-          } else if (state is Error) {
-            return MessageDisplay(message: state.message);
-          }
-          return Placeholder();
-        },
+  Widget buildBody(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [TriviaControls()],
       ),
     );
   }
@@ -72,70 +43,79 @@ class TriviaControls extends StatefulWidget {
 }
 
 class _TriviaControlsState extends State<TriviaControls> {
-  final controller = TextEditingController();
+  final _controller = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
   late String inputStr;
 
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
-    return SizedBox(
-      height: size.height * 0.2,
-      child: Column(
-        children: [
-          TextField(
-            controller: controller,
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Form(
+          key: _formKey,
+          child: TextFormField(
+            controller: _controller,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
                 border: OutlineInputBorder(), hintText: 'Input a number'),
             onChanged: (value) {
               inputStr = value;
             },
-            onSubmitted: (_) {
-              dispatchConcrete();
+            onFieldSubmitted: (_) {
+              dispatchConcrete(context);
             },
+            validator: (value) =>
+                value!.isEmpty ? 'Input at least one character' : null,
           ),
-          SizedBox(
-            height: 16,
-          ),
-          Row(
-            children: [
-              Expanded(
-                key: Key('search'),
+        ),
+        SizedBox(
+          height: 16,
+        ),
+        Row(
+          children: [
+            Expanded(
+              key: Key('search'),
+              child: ElevatedButton(
+                onPressed: () => dispatchConcrete(context),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Theme.of(context).accentColor)),
+                child: Text('Search'),
+              ),
+            ),
+            SizedBox(
+              width: 8.0,
+            ),
+            Expanded(
+                key: Key('random'),
                 child: ElevatedButton(
-                  onPressed: dispatchConcrete,
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context).accentColor)),
-                  child: Text('Search'),
-                ),
-              ),
-              SizedBox(
-                width: 8.0,
-              ),
-              Expanded(
-                  key: Key('random'),
-                  child: ElevatedButton(
-                      onPressed: dispatchRandom,
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.grey)),
-                      child: Text('Get random trivia'))),
-            ],
-          )
-        ],
-      ),
+                    onPressed: () => dispatchRandom(context),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.grey)),
+                    child: Text('Get random trivia'))),
+          ],
+        )
+      ],
     );
   }
 
-  void dispatchConcrete() {
-    controller.clear();
-    BlocProvider.of<NumberTriviaBloc>(context)
-        .add(GetTriviaForConcreteNumber(inputStr));
+  void dispatchConcrete(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      _controller.clear();
+      context.beamToNamed('/concrete/$inputStr');
+    }
   }
 
-  void dispatchRandom() {
-    controller.clear();
-    BlocProvider.of<NumberTriviaBloc>(context).add(GetTriviaForRandomNumber());
+  void dispatchRandom(BuildContext context) {
+    _controller.clear();
+    context.beamToNamed('/random');
   }
 }

@@ -1,3 +1,5 @@
+import 'package:clean_arquitecture/features/number_trivia/presentation/navigation/location/route.dart';
+import 'package:clean_arquitecture/features/number_trivia/presentation/navigation/route.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -29,13 +31,16 @@ Future<void> init() async {
   sl.registerLazySingleton<NumberTriviaRepository>(() =>
       NumberTriviaRepositoryImpl(
           remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()));
-          
+
   // Data sources
   sl.registerLazySingleton<NumberTriviaRemoteDataSource>(
       () => NumberTriviaRemoteDataSourceImpl(client: sl()));
 
   sl.registerLazySingleton<NumberTriviaLocalDataSource>(
       () => NumberTriviaLocalDataSourceImpl(sharedPreferences: sl()));
+
+  // Routes
+  sl.registerLazySingleton<Routes>(() => BeamerRoutesImpl());
 
   //! Core
   sl.registerLazySingleton(() => InputConverter());
