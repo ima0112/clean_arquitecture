@@ -1,13 +1,5 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:beamer/beamer.dart';
-
-import '../../../../injection_container.dart';
-import '../bloc/number_trivia_bloc.dart';
-import '../widgets/widgets.dart';
+import 'package:flutter/material.dart';
 
 class NumberTriviaPage extends StatelessWidget {
   const NumberTriviaPage({Key? key}) : super(key: key);

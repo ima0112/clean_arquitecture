@@ -1,8 +1,8 @@
-import 'package:clean_arquitecture/features/number_trivia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/number_trivia_bloc.dart';
+import '../widgets/widgets.dart';
 
 class ConcreteNumberTriviaPage extends StatefulWidget {
   const ConcreteNumberTriviaPage({
