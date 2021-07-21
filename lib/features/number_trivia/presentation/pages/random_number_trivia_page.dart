@@ -10,7 +10,6 @@ class RandomNumberTriviaPage extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
-
   @override
   _RandomNumberTriviaPageState createState() => _RandomNumberTriviaPageState();
 }

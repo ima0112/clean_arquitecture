@@ -53,6 +53,7 @@ class _TriviaControlsState extends State<TriviaControls> {
         Form(
           key: _formKey,
           child: TextFormField(
+            key: Key('number trivia textFormField'),
             controller: _controller,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(

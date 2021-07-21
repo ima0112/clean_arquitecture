@@ -1,43 +1,48 @@
-import 'package:clean_arquitecture/main.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bloc_test/bloc_test.dart';
-import 'package:mocktail/mocktail.dart';
-
 import 'package:clean_arquitecture/features/number_trivia/presentation/pages/number_trivia_page.dart';
-import 'package:clean_arquitecture/features/number_trivia/presentation/bloc/number_trivia_bloc.dart';
-
-class MockNumberTriviaBloc
-    extends MockBloc<NumberTriviaEvent, NumberTriviaState>
-    implements NumberTriviaBloc {}
-
-class FakeNumberTriviaEvent extends Fake implements NumberTriviaEvent {}
-
-class FakeNumberTriviaState extends Fake implements NumberTriviaState {}
+import 'package:clean_arquitecture/main.dart';
+import 'package:clean_arquitecture/injection_container.dart';
+import 'package:clean_arquitecture/features/number_trivia/presentation/pages/random_number_trivia_page.dart';
+import 'package:integration_test/integration_test.dart';
 
 void main() {
-  // late NumberTriviaBloc numberTriviaBloc;
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  setUpAll(() {
-    registerFallbackValue<NumberTriviaEvent>(FakeNumberTriviaEvent());
-    registerFallbackValue<NumberTriviaState>(FakeNumberTriviaState());
+  setUpAll(() async {
+    await init();
   });
 
   group('group', () {
-    setUp(() {
-      // numberTriviaBloc = MockNumberTriviaBloc();
-    });
-
-    testWidgets('test', (WidgetTester tester) async {
-      // when(() => numberTriviaBloc.state).thenReturn(Empty());
-
+    testWidgets(
+        'should return NumberTriviaPage '
+        'like a first page', (WidgetTester tester) async {
       await tester.pumpWidget(MyApp());
 
-      // await tester.tap(find.byKey(Key('search')));
-      // await tester.pumpAndSettle();
+      expect(find.byType(NumberTriviaPage), findsOneWidget);
+      expect(find.byKey(Key('number trivia textFormField')), findsOneWidget);
+      expect(find.byKey(Key('search')), findsOneWidget);
+      expect(find.byKey(Key('random')), findsOneWidget);
+    });
+
+    testWidgets(
+        'should return RandomNumberTriviaPage '
+        'when the button with "random" key is tapped',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(MyApp());
+
+      await tester.tap(find.byKey(Key('random')));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(NumberTriviaPage), findsNothing);
+      expect(find.byType(RandomNumberTriviaPage), findsOneWidget);
+
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
 
       expect(find.byType(NumberTriviaPage), findsOneWidget);
-      // expect(find.text('1'), findsOneWidget);
+      expect(find.byType(RandomNumberTriviaPage), findsNothing);
     });
   });
 }
