@@ -1,20 +1,19 @@
 import 'package:dartz/dartz.dart';
 
-import 'package:clean_arquitecture/core/error/exceptions.dart';
-import 'package:clean_arquitecture/core/error/failures.dart';
-import 'package:clean_arquitecture/core/network/network_info.dart';
-
-import 'package:clean_arquitecture/features/number_trivia/data/models/number_trivia_model.dart';
-import 'package:clean_arquitecture/features/number_trivia/data/datasources/number_trivia_local_data_source.dart';
-import 'package:clean_arquitecture/features/number_trivia/data/datasources/number_trivia_remote_data_source.dart';
-import 'package:clean_arquitecture/features/number_trivia/domain/entities/number_trivia.dart';
-import 'package:clean_arquitecture/features/number_trivia/domain/repositories/number_trivia_repository.dart';
+import '../../../../core/error/exceptions.dart';
+import '../../../../core/error/failures.dart';
+import '../../../../core/network/network_info.dart';
+import '../../domain/entities/number_trivia.dart';
+import '../../domain/repositories/number_trivia_repository.dart';
+import '../datasources/number_trivia_local_data_source.dart';
+import '../datasources/number_trivia_remote_data_source.dart';
+import '../models/number_trivia_model.dart';
 
 typedef _ConcreteOpRandomChooser = Future<NumberTriviaModel> Function();
 
 class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   final NumberTriviaRemoteDataSource remoteDataSource;
-  final NumberTriviaLocaDataSource localDataSource;
+  final NumberTriviaLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
 
   NumberTriviaRepositoryImpl(

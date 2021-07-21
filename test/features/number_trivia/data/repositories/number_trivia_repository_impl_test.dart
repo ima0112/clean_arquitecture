@@ -17,16 +17,16 @@ import 'package:clean_arquitecture/features/number_trivia/data/repositories/numb
 import 'number_trivia_repository_impl_test.mocks.dart';
 
 @GenerateMocks(
-    [NumberTriviaRemoteDataSource, NumberTriviaLocaDataSource, NetworkInfo])
+    [NumberTriviaRemoteDataSource, NumberTriviaLocalDataSource, NetworkInfo])
 void main() {
   late NumberTriviaRepositoryImpl repository;
   late MockNumberTriviaRemoteDataSource mockNumberTriviaRemoteDataSource;
-  late MockNumberTriviaLocaDataSource mockNumberTriviaLocaDataSource;
+  late MockNumberTriviaLocalDataSource mockNumberTriviaLocaDataSource;
   late MockNetworkInfo mockNetworkInfo;
 
   setUp(() {
     mockNumberTriviaRemoteDataSource = MockNumberTriviaRemoteDataSource();
-    mockNumberTriviaLocaDataSource = MockNumberTriviaLocaDataSource();
+    mockNumberTriviaLocaDataSource = MockNumberTriviaLocalDataSource();
     mockNetworkInfo = MockNetworkInfo();
 
     repository = NumberTriviaRepositoryImpl(

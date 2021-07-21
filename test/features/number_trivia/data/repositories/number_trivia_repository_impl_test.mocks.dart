@@ -45,12 +45,12 @@ class MockNumberTriviaRemoteDataSource extends _i1.Mock
           as _i4.Future<_i2.NumberTriviaModel>);
 }
 
-/// A class which mocks [NumberTriviaLocaDataSource].
+/// A class which mocks [NumberTriviaLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNumberTriviaLocaDataSource extends _i1.Mock
-    implements _i5.NumberTriviaLocaDataSource {
-  MockNumberTriviaLocaDataSource() {
+class MockNumberTriviaLocalDataSource extends _i1.Mock
+    implements _i5.NumberTriviaLocalDataSource {
+  MockNumberTriviaLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
