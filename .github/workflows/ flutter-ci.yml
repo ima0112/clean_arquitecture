@@ -13,15 +13,6 @@ on:
 jobs:
   test:
     runs-on: macos-latest
-    strategy:
-      matrix:
-        api-level: [21, 30]
-        arch: [x86, x86_64, arm64-v8a]
-        # exclude:
-        #   - api-level: 21
-        #     arch: x86_64
-        # - api-level: 29
-        #   arch: x86
     steps:
       - name: checkout
         uses: actions/checkout@v2
